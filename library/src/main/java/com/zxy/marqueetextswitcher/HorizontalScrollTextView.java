@@ -42,7 +42,7 @@ public class HorizontalScrollTextView extends AppCompatTextView {
     public HorizontalScrollTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
-                R.styleable.MarqueeTextSwitcher);
+                R.styleable.HorizontalScrollTextView);
         mStepSpeed = typedArray.getFloat(R.styleable.HorizontalScrollTextView_stepSpeed, DEF_STEP_SPEED);
         mStepSpeed = mStepSpeed > 0 ? mStepSpeed : DEF_STEP_SPEED;
         typedArray.recycle();
