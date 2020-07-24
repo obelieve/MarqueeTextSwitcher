@@ -38,7 +38,7 @@ public class MarqueeTextSwitcher extends TextSwitcher {
     private static final int DEF_DELAYED_MARQUEE_DURATION = 3000;
     private static final int DEF_TEXT_SIZE = 14;
     private static final int DEF_TEXT_COLOR = Color.parseColor("#FF333333");
-
+    private static final float DEF_STEP_SPEED = 1.5f;
 
     private List<String> mTextList;
     private int mTextSize;
@@ -46,6 +46,7 @@ public class MarqueeTextSwitcher extends TextSwitcher {
     private int mTextDuration;
     private int mAnimDuration;
     private int mDelayedMarqueeDuration;
+    private float mStepSpeed;
     private int mIndex = 0;
 
     private boolean mShowLog = BuildConfig.DEBUG;
@@ -108,6 +109,8 @@ public class MarqueeTextSwitcher extends TextSwitcher {
         mDelayedMarqueeDuration = typedArray.getInteger(R.styleable.MarqueeTextSwitcher_marqueeDelayedDuration, DEF_DELAYED_MARQUEE_DURATION);
         mTextSize = typedArray.getDimensionPixelSize(R.styleable.MarqueeTextSwitcher_textSize, DEF_TEXT_SIZE);
         mTextColor = typedArray.getColor(R.styleable.MarqueeTextSwitcher_textColor, DEF_TEXT_COLOR);
+        mStepSpeed = typedArray.getFloat(R.styleable.MarqueeTextSwitcher_stepSpeed, DEF_STEP_SPEED);
+        mStepSpeed = mStepSpeed > 0 ? mStepSpeed : DEF_STEP_SPEED;
         typedArray.recycle();
     }
 
@@ -222,6 +225,7 @@ public class MarqueeTextSwitcher extends TextSwitcher {
                 public View makeView() {
                     final HorizontalScrollTextView textView = new HorizontalScrollTextView(getContext());
                     textView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+                    textView.setStepSpeed(mStepSpeed);
                     textView.setTextColor(mTextColor);
                     textView.setTextSize(mTextSize);
                     textView.setTextScrollListener(1, new HorizontalScrollTextView.onTextScrollListener() {
@@ -247,6 +251,10 @@ public class MarqueeTextSwitcher extends TextSwitcher {
             };
             super.setFactory(factory);
         }
+    }
+
+    public void setStepSpeed(float stepSpeed) {
+        mStepSpeed = stepSpeed > 0 ? stepSpeed : DEF_STEP_SPEED;
     }
 
     public void setContentTextColor(int color) {
