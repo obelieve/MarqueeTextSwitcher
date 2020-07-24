@@ -18,10 +18,10 @@ public class MainActivity extends AppCompatActivity {
         mtsContent = findViewById(R.id.mts_content);
         List<String> list = Arrays.asList(
                 "Hello World",
+                "MarqueeTextSwitcher滚动栏 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",
                 "MarqueeTextSwitcher滚动栏",
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-                "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-                "MarqueeTextSwitcher滚动栏 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+                "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ");
         mtsContent.setTextList(list);
         mtsContent.startRun();
     }
