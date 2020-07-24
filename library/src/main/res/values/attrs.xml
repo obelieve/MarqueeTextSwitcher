@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="stepSpeed" format="float"/>
     <declare-styleable name="MarqueeTextSwitcher">
         <attr name="textDuration" format="integer"/>
         <attr name="animDuration" format="integer"/>
         <attr name="marqueeDelayedDuration" format="integer"/>
         <attr name="textSize" format="dimension"/>
         <attr name="textColor" format="color"/>
-        <attr name="stepSpeed" format="float"/>
+        <attr name="stepSpeed"/>
     </declare-styleable>
 
     <declare-styleable name="HorizontalScrollTextView">
-        <attr name="stepSpeed" format="float"/>
+        <attr name="stepSpeed"/>
     </declare-styleable>
 </resources>
