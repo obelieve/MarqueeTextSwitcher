@@ -15,6 +15,8 @@ import androidx.appcompat.widget.AppCompatTextView;
  */
 public class HorizontalScrollTextView extends AppCompatTextView {
 
+    private static final float DEF_STEP_SPEED = 1.5f;
+
     private float textLength = 0f;// 文本长度
     private float step = 0f;// 文字的横坐标
 
@@ -178,7 +180,7 @@ public class HorizontalScrollTextView extends AppCompatTextView {
         if (!isStarting) {
             return;
         }
-        step += 1.5f;// 文字滚动速度。
+        step += DEF_STEP_SPEED;// 文字滚动速度。
         if (step > temp_view_plus_two_text_length) {
             if (mTimesCount <= mTimes) {
                 if (mListener != null)
