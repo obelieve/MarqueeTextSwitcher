@@ -33,7 +33,7 @@ public class MarqueeTextSwitcher extends TextSwitcher {
     private static final int WHAT_SHOW_NEXT = 0;
     private static final int WHAT_SCROLL_CUR = 1;
 
-    private List<String> texts;
+    private List<String> mTextList;
     private int TEXT_DURATION = 3000;
     private int ANIM_DURATION = 1000;
     private int TEXT_SIZE = 14;
@@ -151,7 +151,7 @@ public class MarqueeTextSwitcher extends TextSwitcher {
         } else {
             Message message = Message.obtain();
             message.what = WHAT_SHOW_NEXT;
-            message.obj = texts.get(i % texts.size());
+            message.obj = mTextList.get(i % mTextList.size());
             handler.sendMessage(message);
         }
         i++;
@@ -199,9 +199,9 @@ public class MarqueeTextSwitcher extends TextSwitcher {
         super.setInAnimation(inAnimation);
     }
 
-    public void setTexts(List<String> texts) {
-        if (texts != null) {
-            this.texts = texts;
+    public void setTextList(List<String> textList) {
+        if (textList != null) {
+            this.mTextList = textList;
         }
     }
 

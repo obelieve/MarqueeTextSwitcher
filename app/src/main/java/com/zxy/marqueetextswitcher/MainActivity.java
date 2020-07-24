@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
                 "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",
                 "MarqueeTextSwitcher滚动栏 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-        mtsContent.setTexts(list);
+        mtsContent.setTextList(list);
         mtsContent.startRun();
     }
 }
