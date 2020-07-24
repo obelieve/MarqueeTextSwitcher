@@ -30,6 +30,7 @@ allprojects {
         android:layout_height="wrap_content"/>
 ```
 ```java
+        //视图不可见时，自动暂停，无需自行控制。
         List<String> list = Arrays.asList("");
         mtsContent.setTextList(list);
         mtsContent.startRun();
