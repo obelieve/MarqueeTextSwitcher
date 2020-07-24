@@ -32,7 +32,7 @@ public class HorizontalScrollTextView extends AppCompatTextView {
     private int mTimes = 1;//次数
     private int mTimesCount;
     private boolean mFirstInit = true;
-    private float mStepSpeed = DEF_STEP_SPEED;
+    private float mStepSpeed;
 
 
     public HorizontalScrollTextView(Context context) {
