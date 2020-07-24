@@ -8,7 +8,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -36,15 +35,17 @@ public class MarqueeTextSwitcher extends TextSwitcher {
 
     private static final int DEF_TEXT_DURATION = 3000;
     private static final int DEF_ANIM_DURATION = 1000;
+    private static final int DEF_DELAYED_MARQUEE_DURATION = 3000;
     private static final int DEF_TEXT_SIZE = 14;
     private static final int DEF_TEXT_COLOR = Color.parseColor("#FF333333");
 
 
     private List<String> mTextList;
+    private int mTextSize;
+    private int mTextColor;
     private int mTextDuration;
     private int mAnimDuration;
-    private int mTextSize;
-    private int mDefaultTextColor ;
+    private int mDelayedMarqueeDuration;
     private int mIndex = 0;
 
     private boolean mShowLog = BuildConfig.DEBUG;
@@ -71,7 +72,7 @@ public class MarqueeTextSwitcher extends TextSwitcher {
                                 message.what = WHAT_SCROLL_CUR;
                                 mHandler.sendMessage(message);
                             }
-                        }, mTextDuration);
+                        }, mDelayedMarqueeDuration);
                     } else {//少于一行
                         mTimer.schedule(new TimerTask() {
                             @Override
@@ -104,8 +105,9 @@ public class MarqueeTextSwitcher extends TextSwitcher {
                 R.styleable.MarqueeTextSwitcher);
         mTextDuration = typedArray.getInteger(R.styleable.MarqueeTextSwitcher_textDuration, DEF_TEXT_DURATION);
         mAnimDuration = typedArray.getInteger(R.styleable.MarqueeTextSwitcher_animDuration, DEF_ANIM_DURATION);
+        mDelayedMarqueeDuration = typedArray.getInteger(R.styleable.MarqueeTextSwitcher_marqueeDelayedDuration, DEF_DELAYED_MARQUEE_DURATION);
         mTextSize = typedArray.getDimensionPixelSize(R.styleable.MarqueeTextSwitcher_textSize, DEF_TEXT_SIZE);
-        mDefaultTextColor = typedArray.getColor(R.styleable.MarqueeTextSwitcher_textColor, DEF_TEXT_COLOR);
+        mTextColor = typedArray.getColor(R.styleable.MarqueeTextSwitcher_textColor, DEF_TEXT_COLOR);
         typedArray.recycle();
     }
 
@@ -220,7 +222,7 @@ public class MarqueeTextSwitcher extends TextSwitcher {
                 public View makeView() {
                     final HorizontalScrollTextView textView = new HorizontalScrollTextView(getContext());
                     textView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-                    textView.setTextColor(mDefaultTextColor);
+                    textView.setTextColor(mTextColor);
                     textView.setTextSize(mTextSize);
                     textView.setTextScrollListener(1, new HorizontalScrollTextView.onTextScrollListener() {
                         @Override
@@ -237,7 +239,7 @@ public class MarqueeTextSwitcher extends TextSwitcher {
                                 public void run() {
                                     processShowNext();
                                 }
-                            }, mTextDuration);
+                            }, mDelayedMarqueeDuration);
                         }
                     });
                     return textView;
@@ -248,7 +250,7 @@ public class MarqueeTextSwitcher extends TextSwitcher {
     }
 
     public void setContentTextColor(int color) {
-        this.mDefaultTextColor = color;
+        this.mTextColor = color;
     }
 
     public void setContentTextSize(int textSize) {

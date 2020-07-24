@@ -3,6 +3,7 @@
     <declare-styleable name="MarqueeTextSwitcher">
         <attr name="textDuration" format="integer"/>
         <attr name="animDuration" format="integer"/>
+        <attr name="marqueeDelayedDuration" format="integer"/>
         <attr name="textSize" format="dimension"/>
         <attr name="textColor" format="color"/>
     </declare-styleable>
