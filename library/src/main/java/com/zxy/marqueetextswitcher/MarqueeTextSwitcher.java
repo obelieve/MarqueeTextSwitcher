@@ -25,7 +25,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * PagingTextSwitcher
+ * MarqueeTextSwitcher
+ * 跑马灯滚动 + 翻页切换 文本效果
  */
 public class MarqueeTextSwitcher extends TextSwitcher {
 
@@ -33,12 +34,19 @@ public class MarqueeTextSwitcher extends TextSwitcher {
     private static final int WHAT_SHOW_NEXT = 0;
     private static final int WHAT_SCROLL_CUR = 1;
 
+    private final int DEF_TEXT_DURATION = 3000;
+    private final int DEF_ANIM_DURATION = 1000;
+    private final int DEF_TEXT_SIZE = 14;
+    private final int DEF_TEXT_COLOR = Color.parseColor("#FF333333");
+
+
     private List<String> mTextList;
-    private int TEXT_DURATION = 3000;
-    private int ANIM_DURATION = 1000;
-    private int TEXT_SIZE = 14;
-    private int DEFAULT_TEXT_COLOR = Color.parseColor("#FF333333");
+    private int mTextDuration;
+    private int mAnimDuration;
+    private int mTextSize;
+    private int mDefaultTextColor ;
     private int mIndex = 0;
+
     private boolean mShowLog = BuildConfig.DEBUG;
     private boolean mInit = true;
     private boolean mStartRun;
@@ -63,14 +71,14 @@ public class MarqueeTextSwitcher extends TextSwitcher {
                                 message.what = WHAT_SCROLL_CUR;
                                 mHandler.sendMessage(message);
                             }
-                        }, TEXT_DURATION);
+                        }, mTextDuration);
                     } else {//少于一行
                         mTimer.schedule(new TimerTask() {
                             @Override
                             public void run() {
                                 processShowNext();
                             }
-                        }, TEXT_DURATION);
+                        }, mTextDuration);
                     }
                     break;
                 case WHAT_SCROLL_CUR:
@@ -83,8 +91,7 @@ public class MarqueeTextSwitcher extends TextSwitcher {
     };
 
     public MarqueeTextSwitcher(Context context) {
-        super(context, null);
-        init(context, null);
+        this(context, null);
     }
 
     public MarqueeTextSwitcher(Context context, AttributeSet attrs) {
@@ -95,10 +102,10 @@ public class MarqueeTextSwitcher extends TextSwitcher {
     private void init(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.MarqueeTextSwitcher);
-        TEXT_DURATION = typedArray.getInteger(R.styleable.MarqueeTextSwitcher_textDuration, 3000);
-        ANIM_DURATION = typedArray.getInteger(R.styleable.MarqueeTextSwitcher_animDuration, 1000);
-        TEXT_SIZE = typedArray.getDimensionPixelSize(R.styleable.MarqueeTextSwitcher_textSize, 14);
-        DEFAULT_TEXT_COLOR = typedArray.getColor(R.styleable.MarqueeTextSwitcher_textColor, Color.parseColor("#FF333333"));
+        mTextDuration = typedArray.getInteger(R.styleable.MarqueeTextSwitcher_textDuration, DEF_TEXT_DURATION);
+        mAnimDuration = typedArray.getInteger(R.styleable.MarqueeTextSwitcher_animDuration, DEF_ANIM_DURATION);
+        mTextSize = typedArray.getDimensionPixelSize(R.styleable.MarqueeTextSwitcher_textSize, DEF_TEXT_SIZE);
+        mDefaultTextColor = typedArray.getColor(R.styleable.MarqueeTextSwitcher_textColor, DEF_TEXT_COLOR);
         typedArray.recycle();
     }
 
@@ -106,7 +113,7 @@ public class MarqueeTextSwitcher extends TextSwitcher {
     public void setOutAnimation(Animation outAnimation) {
         if (outAnimation == null) {
             outAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_PARENT, -1);
-            outAnimation.setDuration(ANIM_DURATION);
+            outAnimation.setDuration(mAnimDuration);
             super.setOutAnimation(outAnimation);
         }
         super.setOutAnimation(outAnimation);
@@ -114,6 +121,12 @@ public class MarqueeTextSwitcher extends TextSwitcher {
 
     public void setShowLog(boolean debug) {
         mShowLog = debug;
+    }
+
+    public void setTextList(List<String> textList) {
+        if (textList != null) {
+            this.mTextList = textList;
+        }
     }
 
     public void startRun() {
@@ -192,17 +205,11 @@ public class MarqueeTextSwitcher extends TextSwitcher {
     public void setInAnimation(Animation inAnimation) {
         if (inAnimation == null) {
             inAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 1, Animation.RELATIVE_TO_PARENT, 0);
-            inAnimation.setDuration(ANIM_DURATION);
+            inAnimation.setDuration(mAnimDuration);
             inAnimation.setFillAfter(true);
             super.setInAnimation(inAnimation);
         }
         super.setInAnimation(inAnimation);
-    }
-
-    public void setTextList(List<String> textList) {
-        if (textList != null) {
-            this.mTextList = textList;
-        }
     }
 
     @Override
@@ -212,10 +219,9 @@ public class MarqueeTextSwitcher extends TextSwitcher {
                 @Override
                 public View makeView() {
                     final HorizontalScrollTextView textView = new HorizontalScrollTextView(getContext());
-                    textView.setTextColor(DEFAULT_TEXT_COLOR);
-                    textView.setTextSize(TEXT_SIZE);
                     textView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-                    textView.setGravity(Gravity.CENTER);
+                    textView.setTextColor(mDefaultTextColor);
+                    textView.setTextSize(mTextSize);
                     textView.setTextScrollListener(1, new HorizontalScrollTextView.onTextScrollListener() {
                         @Override
                         public void onReset(float x) {
@@ -231,7 +237,7 @@ public class MarqueeTextSwitcher extends TextSwitcher {
                                 public void run() {
                                     processShowNext();
                                 }
-                            }, TEXT_DURATION);
+                            }, mTextDuration);
                         }
                     });
                     return textView;
@@ -242,19 +248,19 @@ public class MarqueeTextSwitcher extends TextSwitcher {
     }
 
     public void setContentTextColor(int color) {
-        this.DEFAULT_TEXT_COLOR = color;
+        this.mDefaultTextColor = color;
     }
 
     public void setContentTextSize(int textSize) {
-        this.TEXT_SIZE = textSize;
+        this.mTextSize = textSize;
     }
 
     public void setTextDuration(int duration) {
-        this.TEXT_DURATION = duration;
+        this.mTextDuration = duration;
     }
 
     public void setAnimDuration(int duration) {
-        this.ANIM_DURATION = duration;
+        this.mAnimDuration = duration;
     }
 
 }
