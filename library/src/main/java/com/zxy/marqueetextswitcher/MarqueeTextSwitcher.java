@@ -34,10 +34,10 @@ public class MarqueeTextSwitcher extends TextSwitcher {
     private static final int WHAT_SHOW_NEXT = 0;
     private static final int WHAT_SCROLL_CUR = 1;
 
-    private final int DEF_TEXT_DURATION = 3000;
-    private final int DEF_ANIM_DURATION = 1000;
-    private final int DEF_TEXT_SIZE = 14;
-    private final int DEF_TEXT_COLOR = Color.parseColor("#FF333333");
+    private static final int DEF_TEXT_DURATION = 3000;
+    private static final int DEF_ANIM_DURATION = 1000;
+    private static final int DEF_TEXT_SIZE = 14;
+    private static final int DEF_TEXT_COLOR = Color.parseColor("#FF333333");
 
 
     private List<String> mTextList;
