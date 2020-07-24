@@ -43,7 +43,7 @@ public class MarqueeTextSwitcher extends TextSwitcher {
     private boolean mInit = true;
     private boolean mStartRun;
     private Timer mTimer;
-    private Handler handler = new Handler(Looper.getMainLooper()) {
+    private Handler mHandler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -61,7 +61,7 @@ public class MarqueeTextSwitcher extends TextSwitcher {
                             public void run() {
                                 Message message = Message.obtain();
                                 message.what = WHAT_SCROLL_CUR;
-                                handler.sendMessage(message);
+                                mHandler.sendMessage(message);
                             }
                         }, TEXT_DURATION);
                     } else {//少于一行
@@ -133,7 +133,7 @@ public class MarqueeTextSwitcher extends TextSwitcher {
     }
 
     private void start() {
-        handler.removeCallbacksAndMessages(null);
+        mHandler.removeCallbacksAndMessages(null);
         if (mTimer != null) {
             mTimer.cancel();
             mTimer = null;
@@ -152,13 +152,13 @@ public class MarqueeTextSwitcher extends TextSwitcher {
             Message message = Message.obtain();
             message.what = WHAT_SHOW_NEXT;
             message.obj = mTextList.get(i % mTextList.size());
-            handler.sendMessage(message);
+            mHandler.sendMessage(message);
         }
         i++;
     }
 
     private void release() {
-        handler.removeCallbacksAndMessages(null);
+        mHandler.removeCallbacksAndMessages(null);
         if (mTimer != null) {
             mTimer.cancel();
             mTimer = null;
