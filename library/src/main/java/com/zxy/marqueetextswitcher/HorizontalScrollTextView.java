@@ -1,6 +1,7 @@
 package com.zxy.marqueetextswitcher;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Parcel;
@@ -8,6 +9,8 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 
 import androidx.appcompat.widget.AppCompatTextView;
+
+import com.zxy.marqueetextswitcher.library.R;
 
 /**
  * Created by Admin
@@ -29,6 +32,7 @@ public class HorizontalScrollTextView extends AppCompatTextView {
     private int mTimes = 1;//次数
     private int mTimesCount;
     private boolean mFirstInit = true;
+    private float mStepSpeed = DEF_STEP_SPEED;
 
 
     public HorizontalScrollTextView(Context context) {
@@ -37,6 +41,10 @@ public class HorizontalScrollTextView extends AppCompatTextView {
 
     public HorizontalScrollTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs,
+                R.styleable.MarqueeTextSwitcher);
+        mStepSpeed = typedArray.getFloat(R.styleable.HorizontalScrollTextView_stepSpeed, DEF_STEP_SPEED);
+        typedArray.recycle();
     }
 
 
@@ -54,6 +62,18 @@ public class HorizontalScrollTextView extends AppCompatTextView {
         step = textLength;
         temp_view_plus_text_length = textLength;//viewWidth + textLength
         temp_view_plus_two_text_length = textLength * 2 - viewWidth;//viewWidth + textLength * 2
+    }
+
+    /**
+     *
+     * @param stepSpeed  大于0，小于0 默认是1.5
+     */
+    public void setStepSpeed(float stepSpeed) {
+        mStepSpeed = stepSpeed > 0 ? stepSpeed : DEF_STEP_SPEED;
+    }
+
+    public float getStepSpeed() {
+        return mStepSpeed;
     }
 
     /**
@@ -180,7 +200,7 @@ public class HorizontalScrollTextView extends AppCompatTextView {
         if (!isStarting) {
             return;
         }
-        step += DEF_STEP_SPEED;// 文字滚动速度。
+        step += mStepSpeed;// 文字滚动速度。
         if (step > temp_view_plus_two_text_length) {
             if (mTimesCount <= mTimes) {
                 if (mListener != null)
