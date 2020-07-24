@@ -228,6 +228,7 @@ public class MarqueeTextSwitcher extends TextSwitcher {
                     textView.setStepSpeed(mStepSpeed);
                     textView.setTextColor(mTextColor);
                     textView.setTextSize(mTextSize);
+                    textView.setMaxLines(1);
                     textView.setTextScrollListener(1, new HorizontalScrollTextView.onTextScrollListener() {
                         @Override
                         public void onReset(float x) {
