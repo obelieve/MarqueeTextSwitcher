@@ -38,7 +38,7 @@ public class MarqueeTextSwitcher extends TextSwitcher {
     private int ANIM_DURATION = 1000;
     private int TEXT_SIZE = 14;
     private int DEFAULT_TEXT_COLOR = Color.parseColor("#FF333333");
-    private int i = 0;
+    private int mIndex = 0;
     private boolean mShowLog = BuildConfig.DEBUG;
     private boolean mInit = true;
     private boolean mStartRun;
@@ -151,10 +151,10 @@ public class MarqueeTextSwitcher extends TextSwitcher {
         } else {
             Message message = Message.obtain();
             message.what = WHAT_SHOW_NEXT;
-            message.obj = mTextList.get(i % mTextList.size());
+            message.obj = mTextList.get(mIndex % mTextList.size());
             mHandler.sendMessage(message);
         }
-        i++;
+        mIndex++;
     }
 
     private void release() {
