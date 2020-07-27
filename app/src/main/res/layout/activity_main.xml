@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.zxy.marqueetextswitcher.MarqueeTextSwitcher
+    <com.obelieve.marqueetextswitcher.MarqueeTextSwitcher
         android:id="@+id/mts_content"
         android:layout_width="match_parent"
         android:layout_height="50dp"

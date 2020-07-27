@@ -1,4 +1,4 @@
-package com.zxy.marqueetextswitcher;
+package com.obelieve.marqueetextswitcher;
 
 import android.os.Bundle;
 

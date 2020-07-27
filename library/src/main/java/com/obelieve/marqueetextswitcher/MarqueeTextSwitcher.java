@@ -1,4 +1,4 @@
-package com.zxy.marqueetextswitcher;
+package com.obelieve.marqueetextswitcher;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -16,8 +16,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.zxy.marqueetextswitcher.library.BuildConfig;
-import com.zxy.marqueetextswitcher.library.R;
+import com.obelieve.marqueetextswitcher.library.BuildConfig;
+import com.obelieve.marqueetextswitcher.library.R;
 
 import java.util.List;
 import java.util.Timer;

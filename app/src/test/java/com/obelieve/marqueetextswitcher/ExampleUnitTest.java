@@ -1,4 +1,4 @@
-package com.zxy.marqueetextswitcher;
+package com.obelieve.marqueetextswitcher;
 
 import org.junit.Test;
 

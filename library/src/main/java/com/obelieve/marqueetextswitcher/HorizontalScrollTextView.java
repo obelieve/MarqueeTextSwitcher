@@ -1,4 +1,4 @@
-package com.zxy.marqueetextswitcher;
+package com.obelieve.marqueetextswitcher;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 
 import androidx.appcompat.widget.AppCompatTextView;
 
-import com.zxy.marqueetextswitcher.library.R;
+import com.obelieve.marqueetextswitcher.library.R;
 
 /**
  * Created by Admin
