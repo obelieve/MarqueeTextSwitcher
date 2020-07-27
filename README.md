@@ -24,7 +24,7 @@ allprojects {
 
 ### Step 3. Use
 ```xml
-    <com.zxy.marqueetextswitcher.MarqueeTextSwitcher
+    <com.obelieve.marqueetextswitcher.MarqueeTextSwitcher
         android:id="@+id/mts_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
