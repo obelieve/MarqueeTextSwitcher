@@ -1,7 +1,7 @@
 # MarqueeTextSwitcher
 公告栏 文本翻页显示 + 跑马灯滚动效果
 
-![image](https://github.com/obelieve/MarqueeTextSwitcher/blob/master/screenshots/pic.gif)
+![image](https://thumbsnap.com/bfQkkmjg)
 
 
 ### Step 1. Add the JitPack repository to your build file
