@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -107,7 +108,8 @@ public class MarqueeTextSwitcher extends TextSwitcher {
         mTextDuration = typedArray.getInteger(R.styleable.MarqueeTextSwitcher_textDuration, DEF_TEXT_DURATION);
         mAnimDuration = typedArray.getInteger(R.styleable.MarqueeTextSwitcher_animDuration, DEF_ANIM_DURATION);
         mDelayedMarqueeDuration = typedArray.getInteger(R.styleable.MarqueeTextSwitcher_marqueeDelayedDuration, DEF_DELAYED_MARQUEE_DURATION);
-        mTextSize = typedArray.getDimensionPixelSize(R.styleable.MarqueeTextSwitcher_textSize, DEF_TEXT_SIZE);
+        mTextSize = typedArray.getDimensionPixelSize(R.styleable.MarqueeTextSwitcher_textSize,
+                (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,DEF_TEXT_SIZE, getResources().getDisplayMetrics()));
         mTextColor = typedArray.getColor(R.styleable.MarqueeTextSwitcher_textColor, DEF_TEXT_COLOR);
         mStepSpeed = typedArray.getFloat(R.styleable.MarqueeTextSwitcher_stepSpeed, DEF_STEP_SPEED);
         mStepSpeed = mStepSpeed > 0 ? mStepSpeed : DEF_STEP_SPEED;
@@ -227,7 +229,7 @@ public class MarqueeTextSwitcher extends TextSwitcher {
                     textView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
                     textView.setStepSpeed(mStepSpeed);
                     textView.setTextColor(mTextColor);
-                    textView.setTextSize(mTextSize);
+                    textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,mTextSize);
                     textView.setMaxLines(1);
                     textView.setTextScrollListener(1, new HorizontalScrollTextView.onTextScrollListener() {
                         @Override
@@ -262,8 +264,12 @@ public class MarqueeTextSwitcher extends TextSwitcher {
         this.mTextColor = color;
     }
 
+    /**
+     *
+     * @param textSize sp
+     */
     public void setContentTextSize(int textSize) {
-        this.mTextSize = textSize;
+        this.mTextSize = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,textSize, getResources().getDisplayMetrics());
     }
 
     public void setTextDuration(int duration) {
