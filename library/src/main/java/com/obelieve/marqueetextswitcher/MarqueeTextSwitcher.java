@@ -138,7 +138,6 @@ public class MarqueeTextSwitcher extends TextSwitcher {
 
     public void startRun() {
         mStartRun = true;
-        mIndex = 0;
         if (mInit) {
             mInit = false;
             setFactory(null);
@@ -155,6 +154,7 @@ public class MarqueeTextSwitcher extends TextSwitcher {
 
     private void start() {
         mHandler.removeCallbacksAndMessages(null);
+        mIndex = 0;
         if (mTimer != null) {
             mTimer.cancel();
             mTimer = null;
