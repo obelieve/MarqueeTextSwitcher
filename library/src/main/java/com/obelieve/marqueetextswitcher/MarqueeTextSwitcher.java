@@ -138,6 +138,7 @@ public class MarqueeTextSwitcher extends TextSwitcher {
 
     public void startRun() {
         mStartRun = true;
+        mIndex = 0;
         if (mInit) {
             mInit = false;
             setFactory(null);
