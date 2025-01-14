@@ -1,5 +1,5 @@
 # MarqueeTextSwitcher
-公告栏 文本翻页显示 + 跑马灯滚动效果
+文本翻页+跑马灯滚动效果
 
 ![image](https://thumbsnap.com/i/bfQkkmjg.gif)
 
